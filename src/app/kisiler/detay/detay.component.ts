@@ -18,10 +18,17 @@ import { LoggerService } from 'src/app/logger.service';
     </p>
   `,
   styles: [],
-  // providers:[LoggerService]
+  providers:[
+    /* 
+     * Bileşen içinde tanımlı servis 
+     * ve parametre bilgileri için sağlanan provide bilgileri daha öncekileri ezer
+     * ve yeni bir servis örneği bu bileşen için yaratılır
+     */
+     LoggerService,  
+     {provide: 'mandatoryParamIcinTakmaAd', useValue: 'kisiler detay bileşeni için secimli param değeri'}, 
+  ]
 })
 export class DetayComponent implements OnInit {
-
 
   // loggerService parametresine geçirilmek üzere nesneyi angular yarattı
   constructor(private loggerService:LoggerService){}
@@ -29,9 +36,9 @@ export class DetayComponent implements OnInit {
   ngOnInit() {
     console.log("console.log ngOnInit");
     let logger = new Logger();
-    logger.log("buradayım");
+    logger.warn("buradayım");
 
-    this.loggerService.log("app-detay::ngOnInit loggerService.log:"+this.loggerService.hede);
+    this.loggerService.log("app-detay::ngOnInit loggerService.log:"+this.loggerService.param1);
   }
 
 }

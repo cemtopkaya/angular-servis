@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(private loggerService:LoggerService){}
 
   ngOnInit(): void {
-    this.loggerService.hede = "hadi"
-    this.loggerService.log("app-root::ngOnInit loggerService.log:"+this.loggerService.hede);
+    this.loggerService.param1 = "hadi"
+    this.loggerService.log("app-root::ngOnInit loggerService.log:"+this.loggerService.param1);
   }
 }

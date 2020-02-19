@@ -15,7 +15,7 @@ export class ListeComponent implements OnInit {
   constructor(private loggerService:LoggerService){}
 
   ngOnInit() {
-    this.loggerService.log("app-liste::ngOnInit logger servisi yazdırıyor :"+this.loggerService.hede);
+    this.loggerService.log("app-liste::ngOnInit :"+this.loggerService.param1);
   }
 
 }

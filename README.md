@@ -1,4 +1,4 @@
-# Servsiler
+# Servisler
 - Servisler uygulama/modül/bileşen özelinde çalışabilir.
 - Servisleri içeren modüllerden EXPORT edilmezler!
 - Servislerin içerdiği metotları typescript compiler bilmesi gerektiği için kullanıldığı yere import edilirler.
@@ -17,7 +17,7 @@ kullandırıyor (tavsiye edilen kullanım).
  
 Eğer default yapıcı metodu yoksa, yani parametre alan bir yapıcı metodu varsa:
 ```
- @Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root'})
 export class LoggerService {
 
   constructor(
@@ -41,14 +41,18 @@ providers özelliğinde yapıcı metodun parametrelerinin alacağı değerleri s
 ```
 
 ## Modül Özelinde Zerk Edilen Servisler
-Eğer bir modülün içinde @NgModule({ providers:[LoggerService] }) şeklinde verseydik 
+Eğer bir servis  { providedIn: 'root'} ile zerk edilmiyor, bir modülün içinde 
+@NgModule({ providers:[LoggerService] }) şeklinde veriliyorsa 
 tüm modül içinde geçerli olacak bir instance yaratıp tüm bileşenlere
-bu örneğini geçirecek şekilde kullanabilirdik (ki artık tavsiye edilmiyor).
+bu örneğini geçirecek şekilde kullanılabilinir (ki artık tavsiye edilmiyor).
 Bu şekilde bir tanımlama ile modül yüklenirken servis nesnesinin yaratılmasına neden olur.
-Lazy Loading modüller için aşağıda açıklama 
+
+*Not: Lazy Loading modüller için aşağıda açıklama mevcut.*
 
 
-# app.module İçinde Tüm Modüller İçin Geçerli Kılmak
+### app.module İçinde Tüm Modüller İçin Geçerli Kılmak
+Bir modül için yapılabilecek tanımlamayı tüm modüller için geçerli kılmanın diğer yoluda 
+uygulama modülü içinde ilgili servisi providers:[LoggerService] dizisine eklemektir.
 
 
 # @Component({ providers:[LoggerService], ...}) > Bileşen Bazlı

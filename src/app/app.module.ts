@@ -22,7 +22,7 @@ import { LoggerService } from './logger.service';
     KisilerModule
   ],
   providers:[
-    LoggerService,
+    // LoggerService,
     {provide: 'mandatoryParamIcinTakmaAd', useValue: 'zorunlu param değeri'}, 
     {provide: 'optionalParamIcinTakmaAd', useValue: 'secimli param değeri'}, 
   ],

@@ -12,6 +12,9 @@ import { LoggerService } from '../logger.service';
   imports: [
     CommonModule
   ],
-  // providers:[LoggerService]
+  providers:[
+    {provide: 'mandatoryParamIcinTakmaAd', useValue: 'kisiler modülü için secimli param değeri'}, // providedIn:root olduğu için burada tanımlamanın bir anlamı olmayacak!
+    LoggerService, // providedIn:root olduğu için burada tanımlamanın bir anlamı olmayacak! 
+  ]
 })
 export class KisilerModule { }
