@@ -29,13 +29,12 @@ export class LoggerService {
 
 İster tüm uygulamanın modülünde, ister belirli bir modül veya component tanımının
 providers özelliğinde yapıcı metodun parametrelerinin alacağı değerleri sağlarız:
-
 ```
 @NgModule(  veya @Component(
   providers:[
-    // LoggerService  // providedIn:root olduğu için burada belirtmeye gerek yok
-    {provide: 'mandatoryParamIcinTakmaAd', useValue: 'zorunlu param değeri'}, 
-    {provide: 'optionalParamIcinTakmaAd', useValue: 'secimli param değeri'}, 
+    // LoggerService  // {providedIn: 'root'} olduğu için burada belirtmeye gerek yok
+    {provide: 'mandatoryParamIcinTakmaAd', useValue: 'app.module içinde set edilen zorunlu param değeri'}, 
+    {provide: 'optionalParamIcinTakmaAd', useValue: 'app.module içinde set edilen secimli param değeri'}, 
   ]
 )
 ```
@@ -56,26 +55,18 @@ uygulama modülü içinde ilgili servisi providers:[LoggerService] dizisine ekle
 
 
 # @Component({ providers:[LoggerService], ...}) > Bileşen Bazlı
-Eğer sadece component'in @Component({ providers:[LoggerService], ...}) özelliğine
-yazmış olsaydık o zamanda sadece bu bileşen için LoggerService tipinde bir nesne 
-yaratıp DI ile enjecte edecekti.
-Eğer modülün providers:[LoggerService] özelliğine ve bileşenin 
-providers:[LoggerService] özelliğine atama yapılsaydı, hem modül için bir nesne 
+- Eğer sadece component'in *@Component({ providers:[LoggerService], ...})* özelliğine
+yazmış olsaydık o zamanda sadece bu bileşen için LoggerService tipinde bir nesne yaratıp DI ile enjecte edecekti.
+
+- Eğer modülün ve bileşenin *providers:[LoggerService]* özelliğine atama yapılsaydı, hem modül için bir nesne 
 hem bileşen için ayrı bir nesne zerk edecekti.
 
 # Angular Modül Yükleme Türleri
-- Eager Loading
-- Lazy Loading
-- Pre-Loading
+- **Eager Loading**, varsayılan modül yükleme şekli olup uygulama başlarken modüllerin yüklenmesidir. Küçük boyutlu uygulamalar için kullanılabilir. Tüm modüller uygulama başladığında kullanıma hazırdır.
+- **Lazy Loading**, uygulama yüklendikten sonra istek gerçekleştiğinde modülün yüklenmesidir. Bu sayede uygulamanın ilk paket boyutu ve yüklenme süresi düşer.
+- **Pre-Loading**, orta ölçekte uygulamalar için geçerlidir. Uygulama başladıktan sonra kullanılması beklenen modüllerin yüklenmesini amaçlar.
 
-### Eager Loading
-Varsayılan modül yükleme şekli olup uygulama başlarken modüllerin yüklenmesidir. Küçük boyutlu uygulamalar için kullanılabilir. Tüm modüller uygulama başladığında kullanıma hazırdır.
 
-### Pre-Loading
-Orta boyutlu uygulamalar için geçerlidir. Uygulama başladıktan sonra kullanılması beklenen modüllerin yüklenmesini amaçlar.
-
-### Lazy Loading
-Uygulama yüklendikten sonra istek gerçekleştiğinde modülün yüklenmesidir. Bu sayede uygulamanın ilk paket boyutu ve yüklenme süresi düşer.
 
 ## Lazy Loading Modül
 * Ana modülünüz app.module.ts olsun. 
