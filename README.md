@@ -1,6 +1,13 @@
+# Servsiler
+- Servisler uygulama/modül/bileşen özelinde çalışabilir.
+- Servisleri içeren modüllerden EXPORT edilmezler!
+- Servislerin içerdiği metotları typescript compiler bilmesi gerektiği için kullanıldığı yere import edilirler.
+
+## Uygulama Özelinde Zerk Edilen Servisler
+
 Bu servise erişimin en genel olduğu ayardan en kısıtlı olana bakalım:
 
-# providedIn:root
+#### providedIn:root
 Injectable dekoratörünün providedIn özelliğine 'root' değerini verdiğimizde:
 - angular çatısı, DI özelliği sayesinde,
 - "default yapıcı metodu varsa" ekstra bir tanımlama gerekmeden
@@ -9,17 +16,31 @@ Injectable dekoratörünün providedIn özelliğine 'root' değerini verdiğimiz
 kullandırıyor (tavsiye edilen kullanım).
  
 Eğer default yapıcı metodu yoksa, yani parametre alan bir yapıcı metodu varsa:
-ister tüm uygulamanın modlünde, ister belirl bir modülü veya component tanımının
-providers özelliğine yapıcı metodun parametrelerinin alacağı değerleri sağlarız:
+```
+ @Injectable({ providedIn: 'root'})
+export class LoggerService {
+
+  constructor(
+    private httpClient: HttpClient,
+    @Inject('mandatoryParamIcinTakmaAd') param1:string,
+    @Inject('optionalParamIcinTakmaAd') @Optional() param2?:string,
+    ) { ...
+```
+
+İster tüm uygulamanın modülünde, ister belirli bir modül veya component tanımının
+providers özelliğinde yapıcı metodun parametrelerinin alacağı değerleri sağlarız:
+
+```
 @NgModule(  veya @Component(
   providers:[
-    // LoggerService
+    // LoggerService  // providedIn:root olduğu için burada belirtmeye gerek yok
     {provide: 'mandatoryParamIcinTakmaAd', useValue: 'zorunlu param değeri'}, 
     {provide: 'optionalParamIcinTakmaAd', useValue: 'secimli param değeri'}, 
   ]
 )
+```
 
-# @NgModule({ providers:[LoggerService] }) > Modül Bazlı
+## Modül Özelinde Zerk Edilen Servisler
 Eğer bir modülün içinde @NgModule({ providers:[LoggerService] }) şeklinde verseydik 
 tüm modül içinde geçerli olacak bir instance yaratıp tüm bileşenlere
 bu örneğini geçirecek şekilde kullanabilirdik (ki artık tavsiye edilmiyor).
@@ -38,7 +59,7 @@ Eğer modülün providers:[LoggerService] özelliğine ve bileşenin
 providers:[LoggerService] özelliğine atama yapılsaydı, hem modül için bir nesne 
 hem bileşen için ayrı bir nesne zerk edecekti.
 
-## Angular Modül Yükleme Türleri
+# Angular Modül Yükleme Türleri
 - Eager Loading
 - Lazy Loading
 - Pre-Loading
