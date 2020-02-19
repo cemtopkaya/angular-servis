@@ -131,13 +131,6 @@ eager-loading için kullandığımız children yerine lazy loading için [loadCh
 Tembel yüklenen rotaların kök uygulama modülünün dışında olması gerekir, bu nedenle tembel yüklenen özelliklerin (sipariş feature gibi) kendilerine has modüllere sahip olmasını istersiniz. Böylece uygun path için ilgili modüle loadChildren ile bağlantı verebilesiniz. 
 
 Eğer uygulama modülünüzde, tembel olarak yüklenmesi gereken bileşenleri içe aktarırsanız (app.module içinde imports:[SiparisComponent, SiparisDetayComponent... gibi]) eager loading yapmış olursunuz. Oysa lazy loading stratejisinde ilgili bileşenler kullanıldığında yüklenmesini istediğimiz için ön yüklemenin gerçekleşmesini istemeyiz. 
-```
-const routes: Routes = [
-  { path: '', redirectTo: 'eager', pathMatch: 'full' },
-  { path: 'eager', component: EagerComponent },
-  { path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule' }
-];
-```
 
 ### Referanslar
 [Eager-Pre-Lazy Loading](https://medium.com/@lifei.8886196/eager-loading-lazy-loading-and-pre-loading-in-angular-2-what-when-and-how-798bd107090c)
