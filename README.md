@@ -1,27 +1,29 @@
-# Servis
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Bu servise erişimin en genel olduğu ayardan en kısıtlı olana bakalım:
+  
+Injectable dekoratörünün providedIn özelliğine 'root' değerini verdiğimizde:
+- angular çatısı, DI özelliği sayesinde,
+- "default yapıcı metodu varsa" ekstra bir tanımlama gerekmeden
+- uygulama seviyesinde her yerden erişilebilir, 
+- bir nesneyi yaratıp
+kullandırıyor (tavsiye edilen kullanım).
+ 
+Eğer default yapıcı metodu yoksa, yani parametre alan bir yapıcı metodu varsa:
+ister tüm uygulamanın modlünde, ister belirl bir modülü veya component tanımının
+providers özelliğine yapıcı metodun parametrelerinin alacağı değerleri sağlarız:
+@NgModule(  veya @Component(
+  providers:[
+    // LoggerService
+    {provide: 'mandatoryParamIcinTakmaAd', useValue: 'zorunlu param değeri'}, 
+    {provide: 'optionalParamIcinTakmaAd', useValue: 'secimli param değeri'}, 
+  ]
+)
+  
+Eğer @NgModule({ providers:[LoggerService] }) şeklinde verseydik 
+tüm modül içinde geçerli olacak bir instance yaratıp tüm bileşenlere
+bu örneğini geçirecek şekilde kullanabilirdik (ki artık tavsiye edilmiyor).
+Eğer sadece component'in @Component({ providers:[LoggerService], ...}) özelliğine
+yazmış olsaydık o zamanda sadece bu bileşen için LoggerService tipinde bir nesne 
+yaratıp DI ile enjecte edecekti.
+Eğer modülün providers:[LoggerService] özelliğine ve bileşenin 
+providers:[LoggerService] özelliğine atama yapılsaydı, hem modül için bir nesne 
+hem bileşen için ayrı bir nesne zerk edecekti.
